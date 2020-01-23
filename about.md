@@ -29,7 +29,13 @@ connaitre mieux les objets et créer un catalogue de renseignement pour le débu
 
 ## Les fonctionnalités minimales de votre outil de consultation:
 
-Une bar de recherche. Nous aimerions partir sur des simples mot cléf permet de retrouver des galaxies. 
+Une bar de recherche. Nous aimerions partir sur des simples mot cléf permet de retrouver des galaxies.
+Les méthodes d'API RESTful:
+  1. /api/messier-catalogue                         GET
+  2. /api/messier-catalogue/<réf-messier>           GET
+  3. /api/messier-catalogue/<réf-messier>/delete    DELETE
+  4. /api/messier-catalogue/<réf-messier>/update    PUT/PATCH
+  5. /api/messier-catalogue/create                  POST
 
 ## Les fonctionnalités idéales de votre outil:
 

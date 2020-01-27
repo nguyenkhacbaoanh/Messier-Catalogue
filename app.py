@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,13 +10,13 @@ import os
 import pandas as pd
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/catalogue-database.db'.format(os.path.dirname(os.path.abspath(__file__)))
 db = SQLAlchemy(app)
 
 from catalogue import Catalogue
 
-# flask marshmallow
 # requirements.txt 
 
 @app.route('/api/messier-catalogue', methods=['GET'])

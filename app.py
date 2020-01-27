@@ -1,19 +1,22 @@
 from flask import Flask
 from flask import request
 
+from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
+
+import os
+
 import pandas as pd
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/antoine/Desktop/Messier-Catalogue/catalogue-database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/catalogue-database.db'.format(os.path.dirname(os.path.abspath(__file__)))
 db = SQLAlchemy(app)
 
 from catalogue import Catalogue
 
-# path director
-#
-
+# flask marshmallow
+# requirements.txt 
 
 @app.route('/api/messier-catalogue', methods=['GET'])
 def messier_catalogue():

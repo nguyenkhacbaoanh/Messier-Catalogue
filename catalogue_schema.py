@@ -10,6 +10,5 @@ class CatalogueSchema(ma.Schema):
         {"self": ma.URLFor("detail", id="<id>")}
     )
 
-
 catalogue_schema = CatalogueSchema()
 catalogues_schema = CatalogueSchema(many=True)

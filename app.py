@@ -10,7 +10,7 @@ import os
 import pandas as pd
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/catalogue-database.db'.format(os.path.dirname(os.path.abspath(__file__)))
 db = SQLAlchemy(app)
@@ -19,10 +19,6 @@ ma = Marshmallow(app)
 from catalogue import Catalogue
 
 from catalogue_schema import CatalogueSchema, catalogues_schema, catalogue_schema
-
-
-
-
 
 @app.route('/api/messier-catalogue', methods=['GET'])
 def messier_catalogue():

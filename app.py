@@ -6,18 +6,20 @@ import pandas as pd
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/catalogue-database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/antoine/Desktop/Messier-Catalogue/catalogue-database.db'
 db = SQLAlchemy(app)
 
 from catalogue import Catalogue
 
-df = pd.read_csv('catalogue-de-messier.csv', sep=';')
-df.to_sql(name="catalogue", con=db.engine, if_exists='replace', index=False)
+# path director
+#
+
 
 @app.route('/api/messier-catalogue', methods=['GET'])
 def messier_catalogue():
 
     all_catalogues = Catalogue.query.all()
+    print(all_catalogues)
 
     data ={'data': []}
 

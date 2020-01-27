@@ -7,8 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 import os
 
-import pandas as pd
-
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 

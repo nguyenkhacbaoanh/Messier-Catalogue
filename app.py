@@ -1,79 +1,33 @@
 from flask import Flask
 from flask import request
 
+from flask_cors import CORS
+from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
-import pandas as pd
+
+import os
 
 app = Flask(__name__)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/antoine/Desktop/Messier-Catalogue/catalogue-database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/catalogue-database.db'.format(os.path.dirname(os.path.abspath(__file__)))
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 from catalogue import Catalogue
 
-# path director
-#
-
+from catalogue_schema import CatalogueSchema, catalogues_schema, catalogue_schema
 
 @app.route('/api/messier-catalogue', methods=['GET'])
 def messier_catalogue():
-
-    all_catalogues = Catalogue.query.all()
-    print(all_catalogues)
-
-    data ={'data': []}
-
-    for catalogue in all_catalogues:
-        cat = {}
-        cat['id'] = catalogue.id
-        cat['messier'] = catalogue.messier
-        cat['ngc'] = catalogue.ngc
-        cat['object_type'] = catalogue.object_type
-        cat['season'] = catalogue.season
-        cat['magnitude'] = catalogue.magnitude
-        cat['constellation_eng'] = catalogue.constellation_eng
-        cat['constellation_fr'] = catalogue.constellation_fr
-        cat['constellation_lat'] = catalogue.constellation_lat
-        cat['right_ascension']= catalogue.right_ascension
-        cat['declinaison'] = catalogue.declinaison
-        cat['distance'] = catalogue.distance
-        cat['size'] = catalogue.size
-        cat['discoverer'] = catalogue.discoverer
-        cat['year'] = catalogue.year
-        cat['image_URL'] = catalogue.image_URL
-        cat['constellation'] = catalogue.constellation
-
-        data['data'].append(cat)
-
-    return data
+    catalogues = Catalogue.query.all()
+    return {'data' : catalogues_schema.dump(catalogues)}
 
 @app.route('/api/messier-catalogue/<ref>', methods=['GET'])
 def get_messier_catalogue(ref):
 
     catalogue = Catalogue.query.filter_by(id=ref).first()
-    data = {'data': []}
-
-    cat = {}
-    cat['id'] = catalogue.id
-    cat['messier'] = catalogue.messier
-    cat['ngc'] = catalogue.ngc
-    cat['object_type'] = catalogue.object_type
-    cat['season'] = catalogue.season
-    cat['magnitude'] = catalogue.magnitude
-    cat['constellation_eng'] = catalogue.constellation_eng
-    cat['constellation_fr'] = catalogue.constellation_fr
-    cat['constellation_lat'] = catalogue.constellation_lat
-    cat['right_ascension']= catalogue.right_ascension
-    cat['declinaison'] = catalogue.declinaison
-    cat['distance'] = catalogue.distance
-    cat['size'] = catalogue.size
-    cat['discoverer'] = catalogue.discoverer
-    cat['year'] = catalogue.year
-    cat['image_URL'] = catalogue.image_URL
-    cat['constellation'] = catalogue.constellation
-    data['data'].append(cat)
-    
-    return data
+    return {'data' : catalogue_schema.dump(catalogue)}
 
 @app.route('/api/messier-catalogue/<ref>/delete', methods=['DELETE'])
 def delete_messier_catalogue(ref):

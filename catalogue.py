@@ -2,7 +2,6 @@ from app import db
 
 class Catalogue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    messier = db.Column(db.String(120), unique=True, nullable=False)
     ngc = db.Column(db.String(100), unique=True, nullable=False)
     object_type = db.Column(db.String(100), unique=True, nullable=False)
     season= db.Column(db.String(100), unique=True, nullable=False)
@@ -17,4 +16,5 @@ class Catalogue(db.Model):
     discoverer = db.Column(db.String(100), unique=True, nullable=False)
     year = db.Column(db.String(100), unique=True, nullable=False)
     image_URL = db.Column(db.String(500), unique=True, nullable=False)
+    image_URL1 = db.Column(db.String(500), unique=True, nullable=False)
     constellation = db.Column(db.String(100), unique=True, nullable=False)

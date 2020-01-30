@@ -1,0 +1,6 @@
+[server-messier]
+ec2-35-181-53-115.eu-west-3.compute.amazonaws.com
+
+[server-messier:vars]
+ansible_user="ubuntu"
+ansible_ssh_private_key_file="/Users/nguyenkhacbaoanh/.ssh/server-api-messier.pem"

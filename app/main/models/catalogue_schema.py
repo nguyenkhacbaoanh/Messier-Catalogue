@@ -1,4 +1,4 @@
-from app import ma
+from messier import ma
 
 class CatalogueSchema(ma.Schema):
     class Meta:

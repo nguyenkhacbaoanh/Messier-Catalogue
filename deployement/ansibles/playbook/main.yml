@@ -1,0 +1,80 @@
+---
+
+- hosts: "{{ target }}"    
+  become: True
+  
+  pre_tasks:
+    - debug: msg = "Started deployment. Current time is {{ansible_date_time.date}} {{ansible_date_time.time}} "
+  
+  tasks:
+    - name: Update all packages to the latest version
+      apt:
+        name: "*" 
+        state: latest
+
+    - name: check packages
+      package_facts:
+        manager: "auto"
+
+    - name: "find python3 result"
+      debug: 
+        msg: "python3 found"
+      when: "'python3' in ansible_facts.packages"
+
+    - name: "find python3 result"
+      apt:
+        name: 
+        - "python3"
+        - "python3-pip"
+        state: "present"
+      when: "'python3' not in ansible_facts.packages"
+    
+    - name: "find redis result"
+      debug:
+        msg: "redis-server found"
+      when: "'redis-server' in ansible_facts.packages"
+
+    - name: "find redis result"
+      apt:
+        name: "redis-server"
+        state: "present"
+      when: "'redis-server' not in ansible_facts.packages"
+    
+    - name: Run redis-server
+      service:
+        name: redis-server
+        state: started
+
+    - name: clone project
+      git:
+        repo: "https://github.com/nguyenkhacbaoanh/sample_flask_celery.git"
+        dest: /home/ubuntu/api
+        force: yes   
+ 
+    - name: Installation packages dependencies
+      pip:
+        requirements: /home/ubuntu/api/requirements.txt
+
+    - name: run first worker celery
+      shell:
+        cmd: "nohup celery -A app.celery worker -n wo1 --loglevel=INFO -Q w1 >> /home/ubuntu/celery_wo1.log&"
+        #- nohup celery -A app.celery worker -n wo2 --loglevel=INFO -Q w2 >> /home/ubuntu/celery_wo2.log&
+        #- nohup celery flower -A app.celery --loglevel=INFO >> /home/ubuntu/flowers.log&
+        chdir: /home/ubuntu/api/
+
+    - name: run second worker celery
+      shell:
+        cmd: "nohup celery -A app.celery worker -n wo2 --loglevel=INFO -Q w2 >> /home/ubuntu/celery_wo2.log&"
+        #- nohup celery flower -A app.celery --loglevel=INFO >> /home/ubuntu/flowers.log&
+        chdir: /home/ubuntu/api/
+    
+    - name: run celery monitoring
+      shell:
+        cmd: "nohup celery flower -A app.celery --loglevel=INFO >> /home/ubuntu/flowers.log&"
+        chdir: /home/ubuntu/api/
+
+    - name: run app
+      shell:
+        cmd: "nohup python3 manage.py run >> /home/ubuntu/api.logs&"
+        chdir: /home/ubuntu/api/
+ 

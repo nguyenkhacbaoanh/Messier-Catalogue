@@ -18,8 +18,9 @@ class Messier(db.Model):
     distance = db.Column(db.String(100), unique=True, nullable=False)
     size = db.Column(db.String(100), unique=True, nullable=False)
     discoverer = db.Column(db.String(100), unique=True, nullable=False)
-    year = db.Column(db.String(100), unique=True, nullable=False)
+    year = db.Column(db.Integer(), unique=True, nullable=False)
     image_URL = db.Column(db.String(500), unique=True, nullable=False)
+    image_URL1 = db.Column(db.String(500), unique=True, nullable=False)
     constellation = db.Column(db.String(100), unique=True, nullable=False)
 
     def __repr__(self):

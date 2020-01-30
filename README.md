@@ -7,7 +7,6 @@ Application Structure
                     ├── about.md
                     ├── app
                     │ ├── init.py
-                    │ ├── catalogue-de-messier.csv
                     │ ├── main
                     │ │ ├── init.py
                     │ │ ├── catalogue-database-dev.db

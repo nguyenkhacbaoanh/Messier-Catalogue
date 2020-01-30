@@ -6,7 +6,7 @@ from flask_restplus import Namespace, fields
 
 class MessierDto:
     api = Namespace('Messier', description="Messier catalogue")
-    messier = api.model('user', {
+    messier = api.model('messier', {
                                     'id': fields.String(required=True, description='messier reference'),
                                     'ngc': fields.String(required=True, description='messier reference'),
                                     'object_type': fields.String(required=True, description='messier reference'),

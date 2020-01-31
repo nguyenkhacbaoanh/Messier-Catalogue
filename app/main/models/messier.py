@@ -1,14 +1,36 @@
 from .. import db
-from marshmallow import Schema
+
 
 class Messier(db.Model):
+    """
+    A class used to represent a Messier object
+
+    ...
+
+    Attributes
+    ----------
+    __tablename__ : str
+        a formatted string to represent data table name
+    id : str
+        messier's id
+    ngc : str
+        messier corresponds to ngc's name
+    object_type : str
+        groups type object
+
+    Methods
+    -------
+    __repr__
+        represent a object's messier - printed by it's id
+    """
+
     __tablename__ = "messier"
 
     id = db.Column(db.Integer, primary_key=True)
     # messier = db.Column(db.String(120), unique=True, nullable=False)
     ngc = db.Column(db.String(100), unique=True, nullable=False)
     object_type = db.Column(db.String(100), unique=True, nullable=False)
-    season= db.Column(db.String(100), unique=True, nullable=False)
+    season = db.Column(db.String(100), unique=True, nullable=False)
     magnitude = db.Column(db.String(100), unique=True, nullable=False)
     constellation_eng = db.Column(db.String(100), unique=True, nullable=False)
     constellation_fr = db.Column(db.String(100), unique=True, nullable=False)
@@ -25,13 +47,3 @@ class Messier(db.Model):
 
     def __repr__(self):
         return "<Messier '{}'>".format(self.id)
-
-# class MessierSchema(Schema):
-#     class Meta:
-#         # Fields to expose
-#         fields = ("id", "messier", "ngc", "object_type", "season", "magnitude", "constellation_eng", "constellation_fr", "constellation_lat", "right_ascension", "declinaison", "distance", "size", "discoverer", "year", "image_URL", "constellation")
-
-#     # Smart hyperlinking
-#     _links = ma.Hyperlinks(
-#         {"self": ma.URLFor("detail", id="<id>")}
-#     )

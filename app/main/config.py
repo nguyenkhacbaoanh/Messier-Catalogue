@@ -2,7 +2,7 @@
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-print(basedir)
+
 
 class Config(object):
     """Parent configuration class."""
@@ -20,7 +20,7 @@ class DevelopmentConfig(Config):
     """Configurations for Development."""
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///{}/catalogue-database-dev.db".format(basedir)
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir}/catalogue-database-dev.db"
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -31,7 +31,7 @@ class TestingConfig(Config):
     TESTING = True
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///{}/catalogue-database-test.db".format(basedir)
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir}/catalogue-database-test.db"
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -42,7 +42,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///{}/catalogue-database-prod.db".format(basedir)
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir}/catalogue-database-prod.db"
 
 
 config_by_name = {

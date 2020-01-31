@@ -1,8 +1,11 @@
-from flask import request
 from flask_restplus import Resource
 
 from app.main.dto.messier_dto import MessierDto
-from app.main.services.messier_services import *
+from app.main.services.messier_services import (
+    get_all_messiers_catalogues,
+    get_a_messier_catalogue,
+    get_messier_by_object_type
+)
 
 api = MessierDto.api
 _messier = MessierDto.messier
@@ -14,3 +17,19 @@ class ListMessierCatalogue(Resource):
     @api.marshal_list_with(_messier, envelope='data')
     def get(self):
         return get_all_messiers_catalogues()
+
+
+@api.route("/<messier_id>")
+class MessierCatalogue(Resource):
+    @api.doc('messier_catalogue_detail')
+    @api.marshal_with(_messier, envelope='data')
+    def get(self, messier_id):
+        return get_a_messier_catalogue(messier_id)
+
+
+@api.route("/<object_type>")
+class MessierCatalogueByTypeObject(Resource):
+    @api.doc('lisf_of_messier_catalogue_by_object_type_group')
+    @api.marshal_list_with(_messier, envelope='data')
+    def get(self, object_type):
+        return get_messier_by_object_type(object_type)

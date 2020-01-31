@@ -1,5 +1,5 @@
 import os
-import unittest
+# import unittest
 
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
@@ -19,13 +19,16 @@ migrate = Migrate(app, db)
 
 manager.add_command("db", MigrateCommand)
 
+
 @manager.command
 def run():
     app.run()
 
+
 @manager.command
 def import_data():
     ingestion_init_data("catalogue-de-messier.csv", ";", db.engine, "messier")
+
 
 if __name__ == '__main__':
     manager.run()

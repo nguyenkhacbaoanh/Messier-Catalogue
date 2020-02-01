@@ -44,9 +44,10 @@ Pour la bar de recherche, nous souhaitons utiliser l'expression regulière (Rege
 ## Les technologies pressenties pour réaliser le projet:
 
 Flask
-Celery 
-Postgre
-Redis
+Flask-restful
+Flask-Cors
+Flask-Testing
+SQLAlchemy
 
 On utilise flask pour le serveur l'API rest. 
 

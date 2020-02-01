@@ -9,6 +9,8 @@ from app.main import create_app, db
 # from app.main.models import catalogue
 from app.main.utils import ingestion_init_data
 
+BASEDIR = os.path.dirname(os.path.abspath(__name__))
+
 app = create_app(os.getenv("APP_ENV") or "dev")
 app.register_blueprint(blueprint)
 app.app_context().push()

@@ -3,6 +3,7 @@ from flask_testing import TestCase
 from app.main import db
 from manage import app
 
+
 class BaseTestCase(TestCase):
     """
     Base Tests for application
@@ -12,10 +13,10 @@ class BaseTestCase(TestCase):
     --------
     create_app
         configurate testing case
-    
+
     setUp
         create all table name
-    
+
     shutDown
         remove database and clean environment
     """

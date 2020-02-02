@@ -52,7 +52,16 @@ Initialize database:
     python manage.py db migrate --message "initialize data from csv file"
 
 
-Start app: 
+Start app: ```make all```
 
-    python manage.py run
-    # application will run on port 5000
+    # clean app
+    make clean
+    # install packages dependencies
+    make python-packages
+    # initialize database
+    make database
+    # run tests
+    make tests
+    # run app
+    make run
+

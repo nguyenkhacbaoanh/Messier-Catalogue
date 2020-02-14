@@ -29,7 +29,7 @@ def run():
 
 @manager.command
 def import_data():
-    ingestion_init_data("catalogue-de-messier.csv", ";", db.engine, "messier")
+    ingestion_init_data("data/catalogue-de-messier.csv", ";", db.engine, "messier")
 
 @manager.command
 def test():

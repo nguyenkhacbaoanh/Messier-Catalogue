@@ -1,13 +1,13 @@
 from app.main.models.messier import Messier
 
 
-def get_all_messiers_catalogues():
-    messiers = Messier.query.all()
+def get_all_messiers_catalogues(object):
+    messiers = object.query.all()
     return messiers
 
 
-def get_a_messier_catalogue(messier_id):
-    messier = Messier.query.filter_by(id=messier_id).first()
+def get_a_messier_catalogue(object, messier_id):
+    messier = object.query.filter_by(id=messier_id).first()
     return messier
 
 

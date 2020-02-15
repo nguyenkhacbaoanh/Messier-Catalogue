@@ -1,9 +1,9 @@
 """
 Data Transfert Object
 """
-
 from flask_restplus import Namespace, fields
-
+from marshmallow import Schema
+from app.main.models.messier import MessierName
 
 class MessierDto:
     """
@@ -25,7 +25,7 @@ class MessierDto:
         'messier',
         # define all fields in this model with their data type
         {
-            'messier_id': fields.String(
+            'id': fields.String(
                   required=True,
                   description='messier reference'),
             'ngc': fields.String(
@@ -98,43 +98,33 @@ class MessierDtov2:
     """
 
     api = Namespace('Messier v2', description="Messier catalogue")
-    """
-    designations = db.Column(ARRAY(db.String))
-    # messier = db.Column(db.String(120), unique=True, nullable=False)
-    # ngc = db.Column(db.String(100), unique=True, nullable=False)
-    type = db.Column(db.String(100))
-    object = db.Column(db.String(100))
-    features = db.Column(db.String(100))
-    constellation = db.Column(db.String(100))
-    #constellation_eng = db.Column(db.String(100))
-    #constellation_fr = db.Column(db.String(100))
-    #constellation_lat = db.Column(db.String(100))
-    right_ascension = db.Column(db.String(100))
-    declinaison = db.Column(db.String(100))
-    distance = db.Column(db.String(100))
-    apparent_magnitude = db.Column(db.String(100))
-    absolute_magnitude = db.Column(db.String(100))
-    apparent_dimensions = db.Column(db.String(100))
-    radius = db.Column(db.String(100))
-    class = db.Column(db.String(100))
-    age = db.Column(db.String(100))
-    year = db.Column(db.Integer())
-    number_of_stars = db.Column(db.String(100))
-    tidal_radius = db.Column(db.String(100))
-    mass = db.Column(db.String(100))
-    size = db.Column(db.String(100))
-    redshift = db.Column(db.String(100))
-    helio_radial_velocity = db.Column(db.String(100))
-    galactocentric_velocity = db.Column(db.String(100))
-    linear_diameter = db.Column(db.String(100))
-    spectral_class = db.Column(db.String(100))
-    diameter = db.Column(db.String(100))
-    heliocentric_radial_velocity = db.Column(db.String(100))
-    galactocentric_radial_velocity = db.Column(db.String(100))
-    discoverer = db.Column(db.String(100))
-    image = db.Column(ARRAY(db.String))
-    video = db.Column(ARRAY(db.String))
-    """
+
+    messier_name = api.model(
+        'messier name list',
+        {
+            # "id" : fields.String(
+            #         # required=True,
+            #         description='images id'),
+            # "messier_id" : fields.String(),
+            "other_name" : fields.String(attribute="designations")
+        }
+    )
+
+    messier_image = api.model(
+        'messier image',
+        {
+            "image_url": fields.String(attribute="image"),
+            "image_description": fields.String(500, attribute="image_desc")
+        }
+    )
+
+    messier_video = api.model(
+        'messier video',
+        {
+            "video_url": fields.String(attribute="video"),
+        }
+    )
+
     messier = api.model(
         # model's name
         'messier v2',
@@ -143,7 +133,7 @@ class MessierDtov2:
             'id': fields.String(
                   # required=True,
                   description='messier reference'),
-            'designations': fields.List(fields.String),
+            'designations': fields.List(fields.Nested(messier_name)),
             'type': fields.String(
                            # required=True,
                            description="""nebulae, clusters,
@@ -163,7 +153,7 @@ class MessierDtov2:
             'right_ascension': fields.String(
                                 # required=True,
                                 description='constellation'),
-            'declinaison': fields.String(
+            'declination': fields.String(
                                  # required=True,
                                  description='constellation'),
             'distance': fields.String(
@@ -229,7 +219,6 @@ class MessierDtov2:
             'discoverer': fields.String(
                              # required=True,
                              description='constellation'),
-            'image': fields.List(fields.Url),
-            'video': fields.List(fields.Url)
-                            
+            'image': fields.List(fields.Nested(messier_image)),
+            'video': fields.List(fields.Nested(messier_video))                
         })

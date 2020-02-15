@@ -1,6 +1,6 @@
 from .. import db
 from sqlalchemy.types import ARRAY, Text
-
+from sqlalchemy.orm import relationship
 
 class Messier(db.Model):
     """
@@ -75,7 +75,7 @@ class MessierV2(db.Model):
     __tablename__ = "messierv2"
 
     id = db.Column(db.Integer, primary_key=True)
-    #designations = db.Column(ARRAY(db.String))
+    designations = relationship('MessierName', backref='messierv2', lazy=True)
     # messier_id = db.Column(db.String(120), nullable=False)
     # ngc = db.Column(db.String(100), unique=True, nullable=False)
     messier_type = db.Column(db.String(100))
@@ -108,8 +108,8 @@ class MessierV2(db.Model):
     heliocentric_radial_velocity = db.Column(db.String(100))
     galactocentric_radial_velocity = db.Column(db.String(100))
     discoverer = db.Column(db.String(100))
-    #image = db.Column(ARRAY(db.String))
-    #video = db.Column(ARRAY(db.String))
+    image = relationship('MessierImage', backref='messierv2', lazy=True)
+    video = relationship('MessierVideo', backref='messierv2', lazy=True)
 
     def __repr__(self):
         return "<Messier '{}'>".format(self.id)
@@ -119,7 +119,7 @@ class MessierImage(db.Model):
     __tablename__ = "messier_image"
 
     id = db.Column(db.Integer, primary_key=True)
-    messier_id = db.Column(db.String(120))
+    messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     image = db.Column(db.String(500))
     image_desc = db.Column(db.String(1000))
 
@@ -131,7 +131,7 @@ class MessierVideo(db.Model):
     __tablename__ = "messier_video"
 
     id = db.Column(db.Integer, primary_key=True)
-    messier_id = db.Column(db.String(120))
+    messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     video = db.Column(db.String(500))
 
     def __repr__(self):
@@ -142,7 +142,7 @@ class MessierName(db.Model):
     __tablename__ = "messier_name"
 
     id = db.Column(db.Integer, primary_key=True)
-    messier_id = db.Column(db.String(120))
+    messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     designations = db.Column(db.String(120))
 
     def __repr__(self):

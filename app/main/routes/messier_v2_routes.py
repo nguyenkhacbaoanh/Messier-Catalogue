@@ -19,7 +19,7 @@ _messier = MessierDtov2.messier
 @api.route("/")
 class ListMessierCatalogue(Resource):
     @api.doc('list_of_messier_catalogue')
-    @api.marshal_list_with(_messier, envelope='data')
+    @api.marshal_list_with(_messier, skip_none=True, envelope='data')
     def get(self):
         return get_all_messiers_catalogues(MessierV2)
 

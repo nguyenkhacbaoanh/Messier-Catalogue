@@ -25,7 +25,7 @@ class MessierDto:
         'messier',
         # define all fields in this model with their data type
         {
-            'id': fields.String(
+            'messier_id': fields.String(
                   required=True,
                   description='messier reference'),
             'ngc': fields.String(

@@ -1,4 +1,4 @@
-from app.main.models.messier import Messier
+from app.main.models.messier import Messier, MessierImage, MessierVideo, MessierName
 
 
 def get_all_messiers_catalogues(object):

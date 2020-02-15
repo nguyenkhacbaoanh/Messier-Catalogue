@@ -1,5 +1,5 @@
 from .. import db
-from sqlalchemy.types import ARRAY
+from sqlalchemy.types import ARRAY, Text
 
 
 class Messier(db.Model):
@@ -27,8 +27,8 @@ class Messier(db.Model):
 
     __tablename__ = "messier"
 
-    id = db.Column(db.Integer, primary_key=True)
-    # messier = db.Column(db.String(120), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # messier_id = db.Column(db.String(120), nullable=False)
     ngc = db.Column(db.String(100), unique=True, nullable=False)
     object_type = db.Column(db.String(100), unique=True, nullable=False)
     season = db.Column(db.String(100), unique=True, nullable=False)
@@ -75,24 +75,24 @@ class MessierV2(db.Model):
     __tablename__ = "messierv2"
 
     id = db.Column(db.Integer, primary_key=True)
-    designations = db.Column(ARRAY(db.String))
-    # messier = db.Column(db.String(120), unique=True, nullable=False)
+    #designations = db.Column(ARRAY(db.String))
+    # messier_id = db.Column(db.String(120), nullable=False)
     # ngc = db.Column(db.String(100), unique=True, nullable=False)
-    type_ = db.Column(db.String(100))
-    object_ = db.Column(db.String(100))
+    messier_type = db.Column(db.String(100))
+    messier_object = db.Column(db.String(100))
     features = db.Column(db.String(100))
     constellation = db.Column(db.String(100))
     #constellation_eng = db.Column(db.String(100))
     #constellation_fr = db.Column(db.String(100))
     #constellation_lat = db.Column(db.String(100))
     right_ascension = db.Column(db.String(100))
-    declinaison = db.Column(db.String(100))
+    declination = db.Column(db.String(100))
     distance = db.Column(db.String(100))
     apparent_magnitude = db.Column(db.String(100))
     absolute_magnitude = db.Column(db.String(100))
     apparent_dimensions = db.Column(db.String(100))
     radius = db.Column(db.String(100))
-    class_ = db.Column(db.String(100))
+    messier_class = db.Column(db.String(100))
     age = db.Column(db.String(100))
     year = db.Column(db.Integer())
     number_of_stars = db.Column(db.String(100))
@@ -108,8 +108,42 @@ class MessierV2(db.Model):
     heliocentric_radial_velocity = db.Column(db.String(100))
     galactocentric_radial_velocity = db.Column(db.String(100))
     discoverer = db.Column(db.String(100))
-    image = db.Column(ARRAY(db.String))
-    video = db.Column(ARRAY(db.String))
+    #image = db.Column(ARRAY(db.String))
+    #video = db.Column(ARRAY(db.String))
 
     def __repr__(self):
         return "<Messier '{}'>".format(self.id)
+
+
+class MessierImage(db.Model):
+    __tablename__ = "messier_image"
+
+    id = db.Column(db.Integer, primary_key=True)
+    messier_id = db.Column(db.String(120))
+    image = db.Column(db.String(500))
+    image_desc = db.Column(db.String(1000))
+
+    def __repr__(self):
+        return "<Messier '{}' image>".format(self.messier_id)
+
+
+class MessierVideo(db.Model):
+    __tablename__ = "messier_video"
+
+    id = db.Column(db.Integer, primary_key=True)
+    messier_id = db.Column(db.String(120))
+    video = db.Column(db.String(500))
+
+    def __repr__(self):
+        return "<Messier '{}' video>".format(self.messier_id)
+
+
+class MessierName(db.Model):
+    __tablename__ = "messier_name"
+
+    id = db.Column(db.Integer, primary_key=True)
+    messier_id = db.Column(db.String(120))
+    designations = db.Column(db.String(120))
+
+    def __repr__(self):
+        return "<Messier '{}' design '{}'>".format(self.messier_id, self.designations)

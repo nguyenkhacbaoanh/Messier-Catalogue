@@ -17,6 +17,7 @@ install: system-packages python-packages
 
 tests:
 	python manage.py test
+	flake8 --exclude migrations,env,__pycache__,.git
 
 database:
 	python manage.py db init

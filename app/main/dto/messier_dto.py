@@ -2,8 +2,7 @@
 Data Transfert Object
 """
 from flask_restplus import Namespace, fields
-from marshmallow import Schema
-from app.main.models.messier import MessierName
+
 
 class MessierDto:
     """
@@ -102,11 +101,7 @@ class MessierDtov2:
     messier_name = api.model(
         'messier name list',
         {
-            # "id" : fields.String(
-            #         # required=True,
-            #         description='images id'),
-            # "messier_id" : fields.String(),
-            "other_name" : fields.String(attribute="designations")
+            "other_name": fields.String(attribute="designations")
         }
     )
 
@@ -220,5 +215,5 @@ class MessierDtov2:
                              # required=True,
                              description='constellation'),
             'image': fields.List(fields.Nested(messier_image)),
-            'video': fields.List(fields.Nested(messier_video))                
+            'video': fields.List(fields.Nested(messier_video))
         })

@@ -6,8 +6,7 @@ from app.main.models.messier import Messier
 from app.main.dto.messier_dto import MessierDto
 from app.main.services.messier_services import (
     get_all_messiers_catalogues,
-    get_a_messier_catalogue,
-    get_messier_by_object_type
+    get_a_messier_catalogue
 )
 
 api = MessierDto.api
@@ -37,11 +36,3 @@ class MessierCatalogue(Resource):
             abort(400)
         else:
             return get_a_messier_catalogue(Messier, messier_id)
-
-
-@api.route("/<object_type>")
-class MessierCatalogueByTypeObject(Resource):
-    @api.doc('lisf_of_messier_catalogue_by_object_type_group')
-    @api.marshal_list_with(_messier, envelope='data')
-    def get(self, object_type):
-        return get_messier_by_object_type(object_type)

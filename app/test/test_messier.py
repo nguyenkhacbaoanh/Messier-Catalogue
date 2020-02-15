@@ -14,8 +14,8 @@ class TestMessier(BaseTestCase):
         ingestion_init_data(
             os.path.join(
                 BASEDIR,
-                "catalogue-de-messier.csv"),
-            ";",
+                "data/catalogue-de-messier2.csv"),
+            ",",
             db.engine,
             "messier")
         _messier = Messier.query.filter_by(id='M22').first()
@@ -30,8 +30,8 @@ class TestMessier(BaseTestCase):
         ingestion_init_data(
             os.path.join(
                 BASEDIR,
-                "catalogue-de-messier.csv"),
-            ";",
+                "data/catalogue-de-messier2.csv"),
+            ",",
             db.engine,
             "messier")
         _messiers = Messier.query.all()

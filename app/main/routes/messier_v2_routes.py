@@ -4,11 +4,9 @@ from app.main.utils import token_required
 from app.main.dto.messier_dto import MessierDtov2
 from app.main.services.messier_services import (
     get_all_messiers_catalogues,
-    get_a_messier_catalogue,
-    get_messier_by_object_type
+    get_a_messier_catalogue
 )
 from app.main.models.messier import (
-    Messier,
     MessierV2
 )
 

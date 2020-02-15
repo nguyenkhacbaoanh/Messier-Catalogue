@@ -1,6 +1,6 @@
 from .. import db
-from sqlalchemy.types import ARRAY, Text
 from sqlalchemy.orm import relationship
+
 
 class Messier(db.Model):
     """
@@ -49,6 +49,7 @@ class Messier(db.Model):
     def __repr__(self):
         return "<Messier '{}'>".format(self.id)
 
+
 class MessierV2(db.Model):
     """
     A class used to represent a Messier object
@@ -76,15 +77,10 @@ class MessierV2(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     designations = relationship('MessierName', backref='messierv2', lazy=True)
-    # messier_id = db.Column(db.String(120), nullable=False)
-    # ngc = db.Column(db.String(100), unique=True, nullable=False)
     messier_type = db.Column(db.String(100))
     messier_object = db.Column(db.String(100))
     features = db.Column(db.String(100))
     constellation = db.Column(db.String(100))
-    #constellation_eng = db.Column(db.String(100))
-    #constellation_fr = db.Column(db.String(100))
-    #constellation_lat = db.Column(db.String(100))
     right_ascension = db.Column(db.String(100))
     declination = db.Column(db.String(100))
     distance = db.Column(db.String(100))
@@ -146,4 +142,5 @@ class MessierName(db.Model):
     designations = db.Column(db.String(120))
 
     def __repr__(self):
-        return "<Messier '{}' design '{}'>".format(self.messier_id, self.designations)
+        return "<Messier '{}' design '{}'>".format(self.messier_id,
+                                                   self.designations)

@@ -7,21 +7,55 @@
     2. CABON Antoine
     3. SOLOZABAR Marie
 
-## Les données que contiendront votre catalogue (Messier amélioré):
+## Les données que contiendront votre catalogue (Messier):
 
-ref messier
-L'image 
-Le nom objets
-Saison
-Magnitude 
-dimension
-distance
-Right ascension 
-declinaison
-constellation (english)
-constellation (fr)
-découvreur 
-Année
+1. Messier v1:
+  - id (messier)
+  - L'image 
+  - Le nom objets
+  - Saison
+  - Magnitude 
+  - dimension
+  - distance
+  - Right ascension 
+  - declinaison
+  - constellation (english)
+  - constellation (fr)
+  - découvreur 
+  - Année
+
+2. Messier v2 (Messier amélioré):
+  - id (messier)
+  - designations
+  - messier_type
+  - messier_object
+  - features
+  - constellation
+  - right_ascension
+  - declinaison
+  - distance
+  - apparent_magnitude
+  - absolute_magnitude
+  - apparent_dimensions
+  - radius
+  - messier_class
+  - age
+  - year
+  - number_of_stars
+  - tidal_radius
+  - mass
+  - size
+  - redshift
+  - helio_radial_velocity
+  - galactocentric_velocity
+  - linear_diameter
+  - spectral_class
+  - diameter
+  - heliocentric_radial_velocity
+  - galactocentric_radial_velocity
+  - discoverer
+  - image
+  - video
 
 ## L'intérêt scientifique de ces données et de votre catalogue:
 
@@ -37,23 +71,43 @@ Les méthodes d'API RESTful:
   4. /api/messier-catalogue/<réf-messier>/update    PUT/PATCH
   5. /api/messier-catalogue/create                  POST
 
-## Les fonctionnalités idéales de votre outil:
+## Les fonctionnalités idéales de votre outil
 
-Pour la bar de recherche, nous souhaitons utiliser l'expression regulière (Regex). 
+Pour la bar de recherche, nous souhaitons utiliser l'expression regulière (Regex).
+
+## Les resources de donnée:
+
+1. [Messier v1 - en premier-matière](https://www.datastro.eu/explore/dataset/catalogue-de-messier/table/?disjunctive.objet&disjunctive.mag&disjunctive.english_name_nom_en_anglais&disjunctive.french_name_nom_francais&disjunctive.latin_name_nom_latin&sort=messier)
+  - Nous souhaitons recuperer les données: [lien](https://www.datastro.eu/explore/dataset/catalogue-de-messier/table/?disjunctive.objet&disjunctive.mag&disjunctive.english_name_nom_en_anglais&disjunctive.french_name_nom_francais&disjunctive.latin_name_nom_latin&sort=messier). On peut sauvegarder les données dans une base de donnée sqlite en différents environnements (DEV-TEST-PROD).
+  - La data téléchargée sur le site de datastro, ils sont les features pertinentes mais qu'il y a beaucoup de feature doublée, il y a pas bien de travailler sur cette data
+
+2. [Messier v2 - version évoluée](https://www.messier-objects.com/messier-object-list/)
+  - Le but est d'enrichir la data, nous avons utiliser le web scraping pour parser des éléments (informations) dans des articles et aussi les liens des images et des videos
 
 ## Les technologies pressenties pour réaliser le projet:
 
-Flask
-Flask-restful
-Flask-Cors
-Flask-Testing
-SQLAlchemy
+1. API - Server - CORS - Authorization - Sécurité:
+  - Flask
+  - Flask-restful
+  - Flask-Cors
+  - Okta: c'est le cloud software qui nous permets de builder les access management.
 
-On utilise flask pour le serveur l'API rest. 
+  Notre api a utilisé Swagger UI pour l'interface d'utilisateur et a implémenté des authorizations et authentifications utilisées deux choix: **Token** ou **Oauth2 implicit**
 
-Nous souhaitons recuperer les données: https://www.datastro.eu/explore/dataset/catalogue-de-messier/table/?disjunctive.objet&disjunctive.mag&disjunctive.english_name_nom_en_anglais&disjunctive.french_name_nom_francais&disjunctive.latin_name_nom_latin&sort=messier. On peut sauvegarder les données dans une base de donnée Postgres. 
+2. Object-relational Mapping, gestions des versions de donnée et importation
+  - Flask-SQLAlchemy
+  - Pandas
+  - Flask-Migrate
 
-Celery sera utilisé pour gerer les performances. Celery permet de créer des taches de fond donc plusieurs utilisateurs peuvent faire des requetes sur l'API en même temps. 
+3. Ajouter des commandes supplémentaires et les extensions du scripts Flask
+  - Flask-Script
 
-Redis intervient avant celery et envoie les requetes dans des systèmes de distributions qui permet de gerer les utilisateurs et leurs requetes un par un. 
+4. Test unitaire et test styles, normes du code:
+  - unittest
+  - flake8
+
+5. Web Scraping
+  - selenium
+  - jupyter notebook
+  - beautifulsoup
 

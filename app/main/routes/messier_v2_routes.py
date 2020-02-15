@@ -28,7 +28,7 @@ class ListMessierCatalogue(Resource):
 class MessierCatalogue(Resource):
     @api.doc('messier_catalogue_detail')
     @api.doc(security='apikey')
-    @api.marshal_with(_messier, envelope='data')
+    @api.marshal_with(_messier, skip_none=True, envelope='data')
     @api.response(200, "Success")
     @api.response(401, "Not authorize")
     @api.response(400, "Bad requests")

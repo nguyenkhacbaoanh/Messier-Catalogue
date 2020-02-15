@@ -14,6 +14,7 @@ class Config(object):
     TITLE = "Flask API"
     VERSION = "0.1.0"
     DESCRIPTION = "An API with galaxy catalogs."
+    SWAGGER_UI_DOC_EXPANSION = 'list'
 
 
 class DevelopmentConfig(Config):

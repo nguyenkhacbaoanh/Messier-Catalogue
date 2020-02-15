@@ -97,7 +97,7 @@ class MessierDtov2:
         messier model data
     """
 
-    api = Namespace('Messier v2', description="Messier catalogue")
+    api = Namespace('Messier v2', description="Messier catalogue advance")
 
     messier_name = api.model(
         'messier name list',

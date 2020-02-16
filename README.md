@@ -1,6 +1,6 @@
 **Antoine CABON, NGUYEN Khac Bao Anh, SOLOZABAR Marie**
 
-Application:  Voici la structure de l'application, le schéma permet de voir comment est penser la structure de notre projet.
+Application:  Voici la structure de l'application, le schéma permet de voir comment est pensé la structure de notre projet.
 
     messier-catalogue/
                     ├── README.md

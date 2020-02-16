@@ -9,7 +9,7 @@
 
 ## Les données que contiendront votre catalogue (Messier):
 
-1. Messier v1:
+1. Messier v1: Notre V1 ne se concentre que sur le premier catalogue de Messier. On a 
   - id (messier)
   - L'image 
   - Le nom objets
@@ -24,7 +24,7 @@
   - découvreur 
   - Année
 
-2. Messier v2 (Messier amélioré):
+2. Messier v2 (Messier amélioré): apres du webscraping nous avons pu enrichir le notre V1 pour avoir plus d'information, tout en recherchant les doublons. 
   - id (messier)
   - designations
   - messier_type
@@ -111,3 +111,4 @@ Pour la bar de recherche, nous souhaitons utiliser l'expression regulière (Rege
   - jupyter notebook
   - beautifulsoup
 
+Notre dernier objectif est de faire le lien entre le site et l'api. 

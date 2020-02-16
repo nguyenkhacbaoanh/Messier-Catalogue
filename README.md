@@ -1,6 +1,6 @@
 **Antoine CABON, NGUYEN Khac Bao Anh, SOLOZABAR Marie**
 
-Application Structure
+Application:  Voici la structure de l'application, le schéma permet de voir comment est penser la structure de notre projet.
 
     messier-catalogue/
                     ├── README.md
@@ -37,11 +37,11 @@ Application Structure
                     ├── manage.py
                     └── requirements.txt
 
-Download all dependencies: 
+Download all dependencies: télécharger les dépendances
 
     pip install -r requirements.txt
 
-Initialize database:
+Initialize database: initaliser la database 
     
     # Initialize database with table defined
     python manage.py db init 
@@ -52,7 +52,7 @@ Initialize database:
     python manage.py db migrate --message "initialize data from csv file"
 
 
-Start app: ```make all```
+Start app: ```make all``` démarrer l'application
 
     # clean app
     make clean

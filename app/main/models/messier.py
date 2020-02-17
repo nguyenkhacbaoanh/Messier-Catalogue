@@ -76,7 +76,7 @@ class MessierV2(db.Model):
     __tablename__ = "messierv2"
 
     id = db.Column(db.Integer, primary_key=True)
-    designations = relationship('MessierName', backref='messierv2', lazy=True)
+    designations = relationship('MessierName', backref='names', lazy=True)
     messier_type = db.Column(db.String(100))
     messier_object = db.Column(db.String(100))
     features = db.Column(db.String(100))
@@ -104,8 +104,8 @@ class MessierV2(db.Model):
     heliocentric_radial_velocity = db.Column(db.String(100))
     galactocentric_radial_velocity = db.Column(db.String(100))
     discoverer = db.Column(db.String(100))
-    image = relationship('MessierImage', backref='messierv2', lazy=True)
-    video = relationship('MessierVideo', backref='messierv2', lazy=True)
+    image = relationship('MessierImage', backref='images', lazy=True)
+    video = relationship('MessierVideo', backref='videos', lazy=True)
 
     def __repr__(self):
         return "<Messier '{}'>".format(self.id)
@@ -114,7 +114,7 @@ class MessierV2(db.Model):
 class MessierImage(db.Model):
     __tablename__ = "messier_image"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     image = db.Column(db.String(500))
     image_desc = db.Column(db.String(1000))
@@ -126,7 +126,7 @@ class MessierImage(db.Model):
 class MessierVideo(db.Model):
     __tablename__ = "messier_video"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     video = db.Column(db.String(500))
 
@@ -137,7 +137,7 @@ class MessierVideo(db.Model):
 class MessierName(db.Model):
     __tablename__ = "messier_name"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     messier_id = db.Column(db.String(120), db.ForeignKey('messierv2.id'))
     designations = db.Column(db.String(120))
 

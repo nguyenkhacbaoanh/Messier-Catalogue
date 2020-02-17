@@ -1,5 +1,4 @@
 from flask_restplus import Resource, abort
-from app.main.utils import token_required
 
 from app.main.models.messier import Messier
 

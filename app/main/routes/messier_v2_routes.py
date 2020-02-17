@@ -1,8 +1,5 @@
-from flask_restplus import Resource, abort, marshal
+from flask_restplus import Resource, marshal
 from app.main.utils import token_required
-
-from flask import request
-import os
 
 from app.main.dto.messier_dto import MessierDtov2
 from app.main.services.messier_services import (
@@ -20,13 +17,6 @@ api = MessierDtov2.api
 _messier = MessierDtov2.messier
 messier_playload = MessierDtov2.messier_playload
 
-# @api.route("/")
-# class ListMessierCatalogue(Resource):
-#     @api.doc('list_of_messier_catalogue')
-#     @api.marshal_list_with(_messier, skip_none=True, envelope='data')
-#     def get(self):
-#         return get_all_messiers_catalogues(MessierV2)
-
 
 @api.route("/<messier_id>")
 class MessierCatalogue(Resource):
@@ -41,10 +31,12 @@ class MessierCatalogue(Resource):
         messier_id = messier_id.upper()
         result = get_a_messier_catalogue(MessierV2, messier_id)
         if result is None:
-            return {"message": f"{messier_id} is not existed in our Messier Catalogue"}, 400
+            return {"message": f"{messier_id} \
+                is not existed in our Messier Catalogue"}, 400
         else:
-            return marshal(get_a_messier_catalogue(MessierV2, messier_id), _messier, envelope='data', skip_none=True), 200
-    
+            return marshal(get_a_messier_catalogue(MessierV2, messier_id),
+                           _messier, envelope='data', skip_none=True), 200
+
     @api.doc(security='apikey')
     @token_required
     @api.response(200, "Success")
@@ -54,12 +46,14 @@ class MessierCatalogue(Resource):
         messier_id = messier_id.upper()
         return delete_a_messier_in_catalogue(MessierV2, messier_id)
 
+
 @api.route("/")
-class MessierCatalogue(Resource):
+class MessierCatalogues(Resource):
     @api.doc('list_of_messier_catalogue')
     # @api.marshal_list_with(_messier, skip_none=True, envelope='data')
     def get(self):
-        return marshal(get_all_messiers_catalogues(MessierV2), _messier, skip_none=True, envelope='data'), 200
+        return marshal(get_all_messiers_catalogues(MessierV2),
+                       _messier, skip_none=True, envelope='data'), 200
 
     # @api.marshal_with(_messier, code=201, skip_none=True)
     @api.expect(messier_playload)
@@ -80,11 +74,3 @@ class MessierCatalogue(Resource):
     @api.response(202, "Update successfully")
     def put(self):
         return update_a_messier_in_catalogue(MessierV2, data=api.payload)
-
-
-# @api.route("/<object_type>")
-# class MessierCatalogueByTypeObject(Resource):
-#     @api.doc('lisf_of_messier_catalogue_by_object_type_group')
-#     @api.marshal_list_with(_messier, envelope='data')
-#     def get(self, object_type):
-#         return get_messier_by_object_type(object_type)

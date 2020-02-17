@@ -65,11 +65,17 @@ connaitre mieux les objets et créer un catalogue de renseignement pour le débu
 
 Une bar de recherche. Nous aimerions partir sur des simples mot cléf permet de retrouver des galaxies.
 Les méthodes d'API RESTful:
-  1. /api/messier-catalogue                         GET
-  2. /api/messier-catalogue/<réf-messier>           GET
-  3. /api/messier-catalogue/<réf-messier>/delete    DELETE
-  4. /api/messier-catalogue/<réf-messier>/update    PUT/PATCH
-  5. /api/messier-catalogue/create                  POST
+  1. /api/v2/messier-catalogue                         GET
+
+  ```curl -X GET "http://anh.pythonanywhere.com/api/v2/messier-catalogue/" -H "accept: application/json"```
+
+  2. /api/v2/messier-catalogue/<messier_id>           GET
+
+  ```curl -X GET "http://anh.pythonanywhere.com/api/v2/messier-catalogue/M1" -H "accept: application/json"```
+
+  3. /api/v2/messier-catalogue/<messier_id>    DELETE
+  4. /api/v2/messier-catalogue/    PUT/PATCH
+  5. /api/v2/messier-catalogue/                POST
 
 ## Les fonctionnalités idéales de votre outil
 

@@ -5,6 +5,16 @@ import os
 
 
 def ingestion_init_data(path_file_csv, sep, engine, table_name):
+    """
+    insert data to database.
+
+    Parameters:
+    path_file_csv (string): path file csv
+    sep (string): delimiter in csv file. Exp: ; or ,
+    engine (database engine): engine database
+    table_name: name's table to insert data
+
+    """
     df = pd.read_csv(path_file_csv, sep=sep)
     df.to_sql(name=table_name, con=engine, if_exists='replace', index=False)
 

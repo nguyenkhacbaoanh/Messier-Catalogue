@@ -24,12 +24,12 @@ class ListMessierCatalogue(Resource):
 @api.route("/<messier_id>")
 class MessierCatalogue(Resource):
     @api.doc('messier_catalogue_detail')
-    @api.doc(security='apikey')
+    # @api.doc(security='apikey')
     @api.marshal_with(_messier, envelope='data')
     @api.response(200, "Success")
     @api.response(401, "Not authorize")
     @api.response(400, "Bad requests")
-    @token_required
+    # @token_required
     def get(self, messier_id):
         result = get_a_messier_catalogue(Messier, messier_id)
         if result is None:

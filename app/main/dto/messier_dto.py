@@ -129,14 +129,14 @@ class MessierDtov2:
                   # required=True,
                   description='messier reference'),
             'designations': fields.List(fields.Nested(messier_name)),
-            'type': fields.String(
+            'messier_type': fields.String(
                            # required=True,
                            description="""nebulae, clusters,
                                           galaxies, and other
                                           kinds of objects not
                                           under any major category
                                        """),
-            'object': fields.String(
+            'messier_object': fields.String(
                       # required=True,
                       description='Season'),
             'features': fields.String(
@@ -166,7 +166,7 @@ class MessierDtov2:
             'radius': fields.String(
                           # required=True,
                           description='discoverer'),
-            'class': fields.String(
+            'messier_class': fields.String(
                     # required=True,
                     description='year'),
             'age': fields.String(
@@ -216,4 +216,99 @@ class MessierDtov2:
                              description='constellation'),
             'image': fields.List(fields.Nested(messier_image)),
             'video': fields.List(fields.Nested(messier_video))
+        })
+
+    messier_playload = api.model(
+        # model's name
+        'messier form',
+        # define all fields in this model with their data type
+        {
+            'id': fields.String(
+                  # required=True,
+                  description='messier reference'),
+            'messier_type': fields.String(
+                           # required=True,
+                           description="""nebulae, clusters,
+                                          galaxies, and other
+                                          kinds of objects not
+                                          under any major category
+                                       """),
+            'messier_object': fields.String(
+                      # required=True,
+                      description='Season'),
+            'features': fields.String(
+                         # required=True,
+                         description='magnitude'),
+            'constellation': fields.String(
+                                 # required=True,
+                                 description='constellation'),
+            'right_ascension': fields.String(
+                                # required=True,
+                                description='constellation'),
+            'declination': fields.String(
+                                 # required=True,
+                                 description='constellation'),
+            'distance': fields.String(
+                               # required=True,
+                               description='right ascension'),
+            'apparent_magnitude': fields.String(
+                           # required=True,
+                           description='declinaison'),
+            'absolute_magnitude': fields.String(
+                        # required=True,
+                        description='distance'),
+            'apparent_dimensions': fields.String(
+                    # required=True,
+                    description='size'),
+            'radius': fields.String(
+                          # required=True,
+                          description='discoverer'),
+            'messier_class': fields.String(
+                    # required=True,
+                    description='year'),
+            'age': fields.String(
+                         # required=True,
+                         description='image_URL'),
+            'year': fields.String(
+                          # required=True,
+                          description='image_URL_download'),
+            'number_of_stars': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'tidal_radius': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'mass': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'size': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'redshift': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'helio_radial_velocity': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'galactocentric_velocity': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'linear_diameter': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'spectral_class': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'diameter': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'heliocentric_radial_velocity': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'galactocentric_radial_velocity': fields.String(
+                             # required=True,
+                             description='constellation'),
+            'discoverer': fields.String(
+                             # required=True,
+                             description='constellation')
         })

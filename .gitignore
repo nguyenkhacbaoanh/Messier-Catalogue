@@ -9,7 +9,7 @@ __pycache__/
 
 # database
 *.db
-
+node_modules/
 # Distribution / packaging
 .Python
 build/

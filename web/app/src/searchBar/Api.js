@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import InputBase from '@material-ui/core/InputBase';
+import SingleLineGridList from '../messier/messierList';
 
 class Search extends Component {
     // constructor(props) {

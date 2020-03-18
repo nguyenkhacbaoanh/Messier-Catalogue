@@ -9,7 +9,9 @@ class Search extends Component {
     token = null;
     state = {
       query: "",
-      messier: []
+      messier: [],
+      error: null,
+      isLoad: false
     };
     onChange = e => {
       const { value } = e.target;
@@ -28,20 +30,49 @@ class Search extends Component {
   
       fetch(proxyurl + url)
         .then(results => results.json())
-        .then(dt => {
+        .then((dt) => {
           if (this.token === token) {
-              console.log(dt)
-            this.setState({ messier: dt.data });
+            if (dt.hasOwnProperty("message")) {
+              this.setState({ 
+                isLoad: true,
+                messier : [],
+                error : dt.message
+              })
+            } else {
+              if (dt.data instanceof Object) {
+                this.setState({ 
+                  isLoad: true,
+                  messier: [dt.data] 
+                });
+              } else {
+                this.setState({ 
+                  isLoad: true,
+                  messier: dt.data 
+                });
+              }
+            }
           }
-        }).catch((e) => {console.log(e)});
+        }, (error) => {
+          this.setState({
+            isLoad: true,
+            error: error.message  
+          })
+        })
+        // .catch((e) => {console.log(e)});
     };
+
+    // getData() {
+    //   this.setState({
+    //     data: this.state.messier
+    //   })
+    // }
   
     componentDidMount() {
       this.setState({
         classes: this.props
       });
-      console.log(this.props);
       this.search("");
+      // this.getData();
     }
   
     render() {
@@ -54,22 +85,36 @@ class Search extends Component {
         //     placeholder="Search for..."
         //     onChange={this.onChange}
         //   />
-        //   {this.state.messier.map(mes => (
-        //     <ul key={mes.id}>
-        //       <li>{mes.id}</li>
-        //     </ul>
-        //   ))}
+        //   {
+        //   this.state.messier &&
+        //   // console.log(typeof(this.state.messier)) &&
+        //   // console.log(this.state.messier) &&
+        //   <SingleLineGridList data={this.state.messier}/>
+        //   // this.state.messier.map(mes => (
+        //   //   // console.log(mes) &&
+        //   //   <ul key={mes.id}>
+        //   //     <li>{mes.id}</li>
+        //   //   </ul>
+        //   // ))
+        //   }
         // </form>
+        <div>
         <InputBase
           placeholder="Search…"
           // onChange={handleInputSearchOnChange}
           classes={{
-            root: {color: 'inherit'},
+            root: classes.color,
             input: classes.inputInput,
           }}
           inputProps={{ 'aria-label': 'search' }}
           onChange={this.onChange}
-        />
+          />
+            
+            {/* {
+              this.state.messier &&
+              <SingleLineGridList data={this.state.messier}/> 
+            } */}
+          </div>
       );
     }
   }

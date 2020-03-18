@@ -13,7 +13,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Search from './Api';
+import InputBase from '@material-ui/core/InputBase';
+// import Search from './Api';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -77,7 +78,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -101,6 +102,15 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleInputChange = event => {
+    const query = {
+      "query": event.target.value
+    };
+    // console.log(data);
+    // this.setState(data );
+    props.onChange(query);
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -179,7 +189,17 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </div>
             {/* Search Custom */}
-            <Search classes={classes}/>
+            {/* <Search classes={classes}/> */}
+            {/* end search custom */}
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={handleInputChange}
+            />
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

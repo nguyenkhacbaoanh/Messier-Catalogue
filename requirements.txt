@@ -20,7 +20,7 @@ Mako==1.1.1
 MarkupSafe==1.1.1
 marshmallow==3.3.0
 mccabe==0.6.1
-numpy==1.18.1
+numpy==1.22.0
 pandas==0.25.3
 pycodestyle==2.5.0
 pyflakes==2.1.1
